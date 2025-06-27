@@ -1,1 +1,46 @@
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=Sa
+spring.datasource.password=Nitin
 
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.h2.console.settings.web-allow-others=true
+
+# Disable Eureka registration and discovery
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+spring.cloud.openfeign.discovery.enabled=true
+
+# Expose all actuator endpoints
+management.endpoints.web.exposure.include=*
+
+# Show detailed health info (including circuit breakers)
+management.endpoint.health.show-details=always
+
+# Enable circuit breaker health indicator
+management.health.circuitbreakers.enabled=true
+
+
+# Enable Circuit Breaker config for 'currencyConversionCB'
+resilience4j.circuitbreaker.instances.circuitbreaker.slidingWindowSize=10
+resilience4j.circuitbreaker.instances.circuitbreaker.failureRateThreshold=50
+resilience4j.circuitbreaker.instances.circuitbreaker.waitDurationInOpenState=10s
+resilience4j.circuitbreaker.instances.circuitbreaker.permittedNumberOfCallsInHalfOpenState=3
+resilience4j.circuitbreaker.instances.circuitbreaker.automaticTransitionFromOpenToHalfOpenEnabled=true
+
+# Optional TimeLimiter if you're using timeout with circuit breaker
+resilience4j.timelimiter.instances.currencyConversionCB.timeoutDuration=2s
+spring.boot.admin.client.url=http://localhost:1111
+
+# Send 100% of traces to Zipkin (value between 0.0 and 1.0)
+management.tracing.sampling.probability=1.0
+
+# Zipkin endpoint
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans
